@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Save Credentials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    <div class="container">
+    <form>
+        <div>
+            <label>Enter Design URL</label>
+            <input type="text" id="design" autofocus>
+            <label>Enter Documents URL</label>
+            <input type="text" id="docs">
+            <label>Enter Deal</label>
+            <input type="text" id="deal">
+
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Save</button>
+    </form>
+    </div>
+
+    <script>
+
+        
+
+        const electron = require("electron");
+        const {ipcRenderer} = electron;
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', submitform);
+
+        function submitform(e){
+            e.preventDefault()
+            const nav1 = {
+                designURL: document.querySelector('design').value,
+                docsURL: document.querySelector('docs').value,
+                dealURL: document.querySelector('deal').value,
+            }
+            ipcRenderer.send('nav1:add', nav1)
+        }
+
+    </script>
+
+
+
+
+</body>
+</html>

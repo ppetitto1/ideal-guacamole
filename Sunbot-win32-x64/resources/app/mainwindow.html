@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sunbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="grey darken-4 white-text">
+    <div class="section"> </div>
+    <div class="section"> </div>
+    <div class="container">
+        <div class="content">
+            <div class="grey darken-3 section z-depth-4">
+                <div class="container">
+                <div class="row">
+                <h4 class= "col s12 center-align">Current Design</h4>
+                <div class="section">
+                <div class="col s2">                    <div class= "title">Address</div>
+                <div class= "value" data-address>--</div>  </div>
+                <div class="col s2">                    <div class= "title">System Size</div>
+                <div class= "value" data-system>--</div>    </div>
+                <div class="col s2">                    <div class= "title">2-D Image</div>
+                <div class= "value" data-irradiance>--</div> </div>
+                <div class="col s2">                    <div class= "title">3-D Image</div>
+                <div class= "value" data-3dimage>--</div>   </div>
+                <div class="col s2">                    <div class= "title">Production</div>
+                <div class= "value" data-production>--</div></div>
+                <div class= "col s2">
+                    
+                    <div class="section center-align">
+                    <button class="blue lighten-2 waves-effect waves-light btn z-depth-2 "btn-setdeal>Set </button>      
+                    <div class="section"></div>
+                    <button class="blue lighten-2 waves-effect waves-light btn z-depth-2 "btn-clear>Clear </button>
+                    <div class="section"></div>
+                    </div></div></div>
+
+            </div>
+        </div>    
+    </div>
+
+
+
+    <div class="section"> </div>
+    <div class="section"> </div>
+    <div class="section">    
+    <div class="row ">
+    
+        <div class="col s4">
+            <div class="container">
+            <div class="card center-align grey darken-3 z-depth-4">
+                    <span class= "card-title">Create</span>
+                        <div class="section"><button class="blue lighten-2 waves-effect waves-light btn z-depth-2"btn-create>from Report</button>
+                        <div class="section"></div>
+                        <button class="blue lighten-2 waves-effect waves-light btn z-depth-2"btn-fromdeal>from Deal</button></div>
+                        <div class="section"></div>
+                        </div></div></div>
+
+            <div class="col s4 ">
+                <div class="container">
+                <div class="card center-align grey darken-3  z-depth-4">
+                    <span class= "card-title">Export</span>
+                    <div class="section ">
+
+                        <button class="blue lighten-2 waves-effect waves-light btn z-depth-2"btn-production>Auto</button>
+                        <div class="section"></div>
+                        <button class="blue lighten-2 waves-effect waves-light btn z-depth-2"btn-manual>Manual</button>
+                        <div class="section"></div>
+                        <button class="blue lighten-2 waves-effect waves-light btn z-depth-2"btn-snips>Snips</button>
+                        <div class="section"></div>
+                        </div></div>
+
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="container">
+                <div class="card center-align  grey darken-3 z-depth-4">
+                    <span class= "card-title">Upload</span>
+                    <div class="section"><button class="blue lighten-2 waves-effect waves-light btn z-depth-2"btn-upload>Quick Design</button></div>
+                    <div class="section"></div>
+                </div>
+        </div></div></div></div></div>
+    </div></div> 
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}
+    </script>  
+
+<!-- Insert this line after script imports -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js">
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+   
+    <script>if (window.module) module = window.module;</script>
+   
+   <script>
+        const electron = require('electron')
+        const {ipcRenderer} = electron    
+        
+        
+        $(document).ready(function(){
+        $('.dropdown-trigger').dropdown();
+     });
+
+
+        // createNewProject.style.top = "200px";
+        // createNewProject.style.left = "1120px";
+        // createNewProject.style.position = "absolute"
+        // uploadNewProject.style.top = "800px";
+        // uploadNewProject.style.left = "1120px";
+        // uploadNewProject.style.position = "absolute"
+        // var body = document.getElementsByTagName('body')[0]
+        // body.appendChild(createNewProject)
+        // body.appendChild(uploadNewProject)
+        //Topbar
+        var windowTopBar = document.createElement('div')
+            windowTopBar.style.width = "100%"
+            windowTopBar.style.height = "32px"
+            windowTopBar.style.backgroundColor = "#000"
+            windowTopBar.style.position = "absolute"
+            windowTopBar.style.top = windowTopBar.style.left = 0
+            windowTopBar.style.webkitAppRegion = "drag"
+            document.body.appendChild(windowTopBar)
+        //Text Display
+        const addresselement = document.querySelector('[data-address]')
+        const systemelement = document.querySelector('[data-system]')
+        const irradianceelement = document.querySelector('[data-irradiance]')
+        const imageelement = document.querySelector('[data-3dimage]')
+        const productionelement = document.querySelector('[data-production]')
+
+
+        //Buttons
+        const btncreate = document.querySelector('[btn-create]')
+        const btnupload = document.querySelector('[btn-upload]')
+        const btnsnips = document.querySelector('[btn-snips]')
+        const btnproduction = document.querySelector('[btn-production]')
+        const btnmanual = document.querySelector('[btn-manual]')
+        const btnfromdeal = document.querySelector('[btn-fromdeal]')
+        const btnsetdeal = document.querySelector('[btn-setdeal]')
+        const btnclear = document.querySelector('[btn-clear]')
+
+        //Clear Text
+        function updateClear(){
+            addresselement.textContent="--"
+            systemelement.textContent="--"
+            irradianceelement.textContent="--"
+            imageelement.textContent="--"
+            productionelement.textContent="--"
+        }
+        
+        function upload(){
+            console.log('click')
+
+            var order = 'upload'
+            ipcRenderer.send('order:add',order)
+        }
+        //Update
+        ipcRenderer.on('update:address', function(e, data){
+            updateClear()
+            console.log(data.msg)
+            addresselement.textContent=data.msg
+        })
+        ipcRenderer.on('update:production', function(e, data){
+            console.log(data.msg)
+            productionelement.textContent=data.msg
+            systemelement.textContent=data.msg2
+        })
+        ipcRenderer.on('update:snips', function(e, data){
+            console.log(data.msg)
+            irradianceelement.textContent=data.msg
+            imageelement.textContent=data.msg
+        })
+
+        //Catch clear item
+        ipcRenderer.on('item:clear', function(){
+            ul.innerHTML = ''
+        })
+        btncreate.addEventListener('click', function(e, order){
+            console.log('click')
+            var order = 'create'
+            ipcRenderer.send('order:add',order)
+        })
+        btnupload.addEventListener('click', function(e, order){
+            console.log('click')
+            var order = 'upload'
+            ipcRenderer.send('order:add',order)
+        })
+        btnsnips.addEventListener('click', function(e, order){
+            console.log('click')
+            var order = 'snips'
+            ipcRenderer.send('order:add',order)
+        })
+        btnproduction.addEventListener('click', function(e, order){
+            console.log('click')
+            var order = 'production'
+            ipcRenderer.send('order:add',order)
+        })
+        btnmanual.addEventListener('click', function(e, order){
+            console.log('click')
+            var order = 'manual'
+            ipcRenderer.send('order:add',order)
+        })
+        btnfromdeal.addEventListener('click', function(e, order){
+            console.log('click')
+            var order = 'fromdeal'
+            ipcRenderer.send('order:add',order)
+        })
+        btnsetdeal.addEventListener('click', function(e, order){
+            console.log('click')
+            var order = 'setdeal'
+            ipcRenderer.send('order:add',order)
+        })
+        btnclear.addEventListener('click', function(e, order){
+            console.log('click')
+            var order = 'clear'
+            updateClear()
+            ipcRenderer.send('order:add',order)
+        })
+        
+        //Copy to Clipboard
+        function textToClipboard (text) {
+
+        }      
+        ipcRenderer.on('order:copy',function(pack){
+            var dummy = document.createElement("textarea");
+                document.body.appendChild(dummy);
+                dummy.value = JSON.stringify(pack);
+                dummy.select();
+                document.execCommand("copy");
+                document.body.removeChild(dummy);
+       })
+    </script>
+
+</body>
+</html>
