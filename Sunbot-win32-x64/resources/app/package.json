@@ -21,6 +21,8 @@
     "xlsx": "^0.16.4",
     "electron": "^9.1.0",
     "electron-packager": "^15.0.0",
-    "puppeteer": "^5.1.0"
+    "puppeteer": "^5.1.0",
+    "dotenv": "^8.2.0",
+    "jsforce": "^1.10.0"
   }
 }
